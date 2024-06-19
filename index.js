@@ -6,6 +6,10 @@ const port = process.env.PORT || 5500;
 
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' https://trusted-scripts.com;");
+  next();
+});
 
 const { MongoClient, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster2.siyj0jl.mongodb.net/?retryWrites=true&w=majority`;
